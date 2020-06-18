@@ -1,35 +1,71 @@
 {% extends 'base_template.html' %}
-
 {% block title %}
-    .:ADD NAME:. CREATE
+    .:INDEX:.
 {% endblock title %}
 
 {% block content %}
-    <form action="" method="POST">
-        {{ form.hidden_tag() }}
-        <div>
-            {{ form.name.label }}
-            {{ form.name() }}
-            {% for error in form.name.errors %}
-                <span style="color:red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.email.label }}
-            {{ form.email() }}
-            {% for error in form.email.errors %}
-                <span style="color:red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.phone.label }}
-            {{ form.phone() }}
-            {% for error in form.phone.errors %}
-                <span style="color:red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        <div>
-            {{ form.submit() }}
-        </div>
-    </form>
+    <section class="wrapper">
+        <article class="form">
+            {% from "_macros.html" import alert_message %}
+            {{ alert_message() }}
+            <form action="{{ url_for('public.create_user') }}" method="POST" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="input-form">
+                    {{ form.name.label }} <br>
+                    {{ form.name() }}
+                    {% for error in form.name.errors %}
+                        <span class="error-input">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="input-form">
+                    {{ form.email.label }} <br>
+                    {{ form.email() }}
+                    {% for error in form.email.errors %}
+                        <span class="error-input">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="input-form">
+                    {{ form.phone.label }} <br>
+                    {{ form.phone() }}
+                    {% for error in form.phone.errors %}
+                        <span class="error-input">{{ error }}</span>
+                    {% endfor %}
+                </div>
+                <div class="input-form">
+                    <button type="submit" class="button-send-form">ADD USER</button>
+                </div>
+            </form>
+        </article>
+        <article class="list-user">
+            {% if users %}
+                <table>
+                    <thead>
+                        <tr>
+                            <td>NAME</td>
+                            <td>EMAIL</td>
+                            <td>PHONE</td>
+                            <td>ACTIONS</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td class="btn-actions">
+                                    <a href="{{ url_for('public.modify_user', id=user.id) }}" class="btn-modify">Modify</a>
+                                    <a href="{{ url_for('public.delete_user', id=user.id) }}" class="btn-delete">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p class="without-users">There are no users</p>
+            {% endif %}
+        </article>
+    </section>
+
+
 {% endblock content %}

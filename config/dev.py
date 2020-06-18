@@ -3,5 +3,6 @@
 from .default import *
 
 APP_ENV = APP_ENV_DEVELOPMENT
-FLASK_ENV = 'development'
+
+SQLALCHEMY_DATABASE_URI = 'postgresql://user_db:pass_db@host:port/database_name'
 

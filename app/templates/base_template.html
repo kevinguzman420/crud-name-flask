@@ -4,15 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/404.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;500;700&family=Roboto:wght@100;400;500;700;900&display=swap" rel="stylesheet"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <header>
-        <p>Header</p>
+            <figure class="logo-page">
+                <img src="{{ url_for('static', filename='img/seven_logo.png') }}" alt="logotipo de página" id="logo-page">
+                <p class="logo-text">ADD ALL THE NAME</p>
+            </figure>
+            <aside class="search-form">
+                <form action="">
+                    <button type="submit">SEARCH</button>
+                    <div class="input-container">
+                        <input type="text" placeholder="ENTER A NAME TO SEARCH">
+                        <span class="search-icon">
+                        </span>
+                    </div>
+                </form>
+            </aside>
     </header>
     <section>
         {% block content %}
             
         {% endblock content %}
     </section>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
